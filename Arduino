@@ -1,1 +1,89 @@
+#include <Arduino_HS300x.h>
+#include <ArduinoBLE.h>
 
+// 1. Define custom BLE Service and Characteristic UUIDs
+// Note: Replace the X's with your own generated UUIDs before uploading to your board
+const char* serviceUUID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+const char* tempUUID    = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+const char* humidUUID   = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+
+BLEService weatherService(serviceUUID); 
+
+// Use BLEStringCharacteristic to send strings, maximum length set to 10
+BLEStringCharacteristic tempCharacteristic(tempUUID, BLERead | BLENotify, 10); 
+BLEStringCharacteristic humidCharacteristic(humidUUID, BLERead | BLENotify, 10); 
+
+long previousMillis = 0;  
+
+void setup() {
+  Serial.begin(9600);
+  // while (!Serial); // Keep this commented out if using an external power source (e.g., power bank)
+
+  Serial.println("Initializing Temperature and Humidity Sensor (HS3003)...");
+  if (!HS300x.begin()) {
+    Serial.println("Failed to find HS300x sensor. Please check your wiring/board!");
+    while (1); 
+  }
+  Serial.println("Sensor ready!");
+
+  if (!BLE.begin()) {
+    Serial.println("Starting BLE failed!");
+    while (1);
+  }
+
+  // Set your desired local name for the BLE device
+  BLE.setLocalName("BLE_Weather_Station");
+  BLE.setAdvertisedService(weatherService);
+  
+  // Add temperature and humidity characteristics to the service
+  weatherService.addCharacteristic(tempCharacteristic);
+  weatherService.addCharacteristic(humidCharacteristic); 
+  
+  BLE.addService(weatherService);
+
+  // Set initial values to "0.0"
+  tempCharacteristic.writeValue("0.0");
+  humidCharacteristic.writeValue("0.0"); 
+
+  BLE.advertise();
+  Serial.println("BLE ready and advertising! Waiting for connection...");
+}
+
+void loop() {
+  BLEDevice central = BLE.central();
+
+  if (central) {
+    Serial.print("Connected to central device MAC address: ");
+    Serial.println(central.address());
+
+    while (central.connected()) {
+      long currentMillis = millis();
+      
+      // Read and send data every 2 seconds (2000 ms)
+      if (currentMillis - previousMillis >= 2000) {
+        previousMillis = currentMillis;
+        
+        float temperature = HS300x.readTemperature();
+        float humidity    = HS300x.readHumidity();
+
+        if (isnan(temperature) || isnan(humidity)) {
+          Serial.println("Failed to read data from sensor!");
+        } else {
+          Serial.print("Temperature: ");
+          Serial.print(temperature);
+          Serial.print(" °C  |  Humidity: ");
+          Serial.print(humidity);
+          Serial.println(" %");
+
+          // Convert floats to Strings and send to the connected device
+          tempCharacteristic.writeValue(String(temperature));
+          humidCharacteristic.writeValue(String(humidity)); 
+        }
+      }
+    }
+    
+    Serial.print("Disconnected from central device: ");
+    Serial.println(central.address());
+    Serial.println("Waiting for new connection...");
+  }
+}
