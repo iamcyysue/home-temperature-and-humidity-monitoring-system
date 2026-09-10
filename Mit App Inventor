@@ -1,1 +1,39 @@
+App Logic Overview
+This MIT App Inventor application acts as a bridge between an Arduino Nano 33 BLE device and an AWS cloud backend. It connects to the Arduino via Bluetooth Low Energy (BLE), reads temperature and humidity data, updates the local UI, and periodically sends this data to an AWS API Gateway using HTTP POST requests.
 
+1. Global Variables
+current_temp: Initialized to "0". Stores the latest temperature reading received from the BLE device.
+current_humid: Initialized to "0". Stores the latest humidity reading received from the BLE device.
+
+2. Bluetooth Connection Flow
+Start Scanning: When the user clicks the Connect_to_Nano button, the app triggers BluetoothLE1.StartScanning to look for nearby BLE devices.
+Device Found: Once devices are discovered (BluetoothLE1.DeviceFound), the app populates a List Picker (ListPicker1) with the list of available Bluetooth devices (DeviceList).
+Connecting to Device: After the user selects a device from the List Picker (ListPicker1.AfterPicking), the app:
+Stops scanning for new devices (BluetoothLE1.StopScanning).
+Initiates a connection to the selected device using the chosen index (BluetoothLE1.Connect).
+Connection Success: When the BLE connection is successfully established (BluetoothLE1.Connected), the text of the Connect_to_Nano button is updated to "藍牙連線成功！" (Bluetooth Connected!).
+
+3. Receiving BLE Data
+The app listens for incoming string data from the connected BLE device (BluetoothLE1.StringsReceived). When data is received, it checks the characteristicUuid to determine what kind of data it is:
+Temperature: If the UUID matches the temperature characteristic (19b10001-...), it extracts the first item from the received string list and updates the global current_temp variable.
+Humidity: If the UUID matches the humidity characteristic (19b10002-...), it extracts the first item from the received string list and updates the global current_humid variable.
+
+4. Periodic Data Polling and Cloud Upload (Timer)
+A Timer component (Timer1) runs at a set interval to poll data and send it to the cloud. When the timer triggers:
+Check Connection: It verifies if the BLE device is currently connected (BluetoothLE1.IsDeviceConnected).
+Request Data: If connected, it sends read requests (BluetoothLE1.ReadStrings) for both the temperature and humidity characteristics.
+Update UI:
+Updates the AWS_Connection_Status label to "資料傳送中..." (Sending data...).
+Updates the Temperature and Humidity text labels on the screen with the latest values from the global variables.
+Prepare HTTP Request:
+Sets the Web1.Url to the AWS API Gateway endpoint (https://[YOUR_API_ID].execute-api.ap-southeast-1.amazonaws.com/...).
+Sets the HTTP Request Header Content-Type to application/json.
+Send HTTP POST: It constructs a JSON payload dictionary and sends it via Web1.PostText. The JSON payload contains:
+sensor_id: "sensor_001"
+temperature: The value of current_temp
+humidity: The value of current_humid
+timestamp: The current system time, formatted as MM/dd/yyyy hh:mm:ss a.
+
+5. Web Response and Error Handling
+Web Response (Web1.GotText): When the AWS API responds, the app checks the HTTP response code. Whether the response code is 200 (Success) or something else, it updates the AWS_Connection_Status label with the response content (responseContent) so the user can see the server's reply.
+System Errors (Screen1.ErrorOccurred): If any system or component error occurs during execution, a Notifier (Notifier1) pops up an alert displaying the specific error message to the user
