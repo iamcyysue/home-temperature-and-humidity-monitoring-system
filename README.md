@@ -12,7 +12,6 @@ The system is built using a serverless cloud architecture to ensure scalability 
 4. **AWS Lambda:** The serverless compute engine. It processes the incoming JSON data from the API Gateway.
 5. **AWS DynamoDB:** The NoSQL database where the sensor data is permanently stored.
 
-```text
 [ Sensor / Arduino ] --(BLE)--> [ MIT App Inventor App ] --(HTTP POST)--> [ AWS API Gateway ] --> [ AWS Lambda ] --> [ AWS DynamoDB ]
 
 ## Setup Instructions
