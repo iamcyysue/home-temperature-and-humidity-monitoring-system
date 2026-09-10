@@ -1,3 +1,4 @@
+# Home-temperature-and-humidity-monitoring-system
 # IoT Sensor Data Logger: Mobile App to AWS
 
 This project demonstrates an end-to-end Internet of Things (IoT) architecture. It captures sensor data (e.g., from a Bluetooth-enabled microcontroller like an Arduino), processes it through a custom mobile app built with **MIT App Inventor**, and securely stores it in the cloud using **AWS (Amazon Web Services)**.
