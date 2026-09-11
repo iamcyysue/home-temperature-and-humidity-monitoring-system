@@ -23,16 +23,39 @@ The system is built using a serverless cloud architecture to ensure scalability 
 ### Data Flow
 [ Sensor / Arduino ] --(BLE)--> [ MIT App Inventor App ] --(HTTP POST)--> [ AWS API Gateway ] --> [ AWS Lambda ] --> [ AWS DynamoDB ]
 
-⚙️ Setup Instructions
+**⚙️ Setup Instructions**
 1. AWS Backend Setup
-To run this project, you will need an AWS account. Follow these steps to deploy the backend:
 
-DynamoDB: Create a table named SensorData with a partition key deviceId (String).
-Lambda: Create a Node.js or Python Lambda function. Attach an IAM role with DynamoDB write access. Copy the code from the backend/ folder of this repository into your Lambda function.
-API Gateway: Create an HTTP API. Set up a POST route (e.g., /data) and integrate it with your Lambda function. Note your Invoke URL.
+	To run this project, you will need an AWS account. Follow these steps to deploy 		the backend:
+	  
+	DynamoDB:Create a table named SensorData with a partition key deviceId(String).
+	  
+	Lambda: Create a Node.js or Python Lambda function. Attach an IAM role with
+	DynamoDB write access. Copy the code from the backend/ folder of this repository 		into your Lambda function.
+
+	API Gateway:Create an HTTP API. Set up a POST route (e.g., /data) and integrate it
+	with your Lambda function. Note your Invoke URL.
+			 
 2. Mobile App Setup (MIT App Inventor)
-Go to MIT App Inventor.
-Import the .aia project file found in the app/ directory of this repository.
-Go to the Blocks editor.
-Locate the Web1.Url block and replace the placeholder URL (https://[YOUR_API_URL_HERE]) with your actual AWS API Gateway Invoke URL.
-Build the .apk and install it on your Android device.
+   
+		1. Go to [MIT App Inventor].
+   
+		2. Import the .aia project file found in the app/ directory of this repository.
+   
+		3. Go to the Blocks editor.
+   
+		4. Locate the Web1.Url block and replace the placeholder URL
+		(https://[YOUR_API_URL_HERE]) with your actual AWS API Gateway Invoke URL.
+
+		5. Build the .apk and install it on your Android device.
+
+**🚀 Future Work**
+Here are some planned features and improvements for the next iterations of this project:
+
+**Data Visualization Dashboard:** Build a web-based frontend (e.g., React or Vue.js) to fetch data from DynamoDB and display real-time temperature and humidity charts.
+
+**Automated Alerts:** Integrate AWS SNS (Simple Notification Service) to send email or SMS alerts when the temperature or humidity exceeds predefined safety thresholds.
+
+**Direct Cloud Integration:** Upgrade the hardware to a Wi-Fi enabled module (like ESP32) to connect directly to AWS IoT Core via MQTT, removing the need for a mobile app bridge.
+
+**Enhanced Security:** Implement API Keys or AWS Cognito to secure the API Gateway endpoints against unauthorized access.
