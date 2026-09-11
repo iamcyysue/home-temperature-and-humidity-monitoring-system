@@ -14,6 +14,11 @@ This project demonstrates an end-to-end Internet of Things (IoT) architecture. I
 
 The system is built using a serverless cloud architecture to ensure scalability and low cost:
 
+System Architecture Diagram
+
+<img width="792" height="182" alt="Home monitoring system drawio (2)" src="https://github.com/user-attachments/assets/1f951290-c3f6-464d-b58a-3e5f808c7b1d" />
+
+
 1. **Hardware (Arduino Nano 33 BLE Sense):** Utilizes the on-board HTS221 sensor to collect temperature and humidity data, transmitting it to the mobile app via Bluetooth Low Energy (BLE).
 2. **Mobile App (MIT App Inventor):** Acts as the bridge. It receives the sensor data and makes an HTTP POST request to the cloud.
 3. **AWS API Gateway:** The front door to the cloud backend. It receives the HTTP request from the mobile app.
