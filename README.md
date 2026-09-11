@@ -14,7 +14,7 @@ This project demonstrates an end-to-end Internet of Things (IoT) architecture. I
 
 The system is built using a serverless cloud architecture to ensure scalability and low cost:
 
-1. **Hardware / Sensor (Optional):** Collects data and sends it to the mobile app (e.g., via Bluetooth BLE).
+1. **Hardware (Arduino Nano 33 BLE Sense):** Utilizes the on-board HTS221 sensor to collect temperature and humidity data, transmitting it to the mobile app via Bluetooth Low Energy (BLE).
 2. **Mobile App (MIT App Inventor):** Acts as the bridge. It receives the sensor data and makes an HTTP POST request to the cloud.
 3. **AWS API Gateway:** The front door to the cloud backend. It receives the HTTP request from the mobile app.
 4. **AWS Lambda:** The serverless compute engine. It processes the incoming JSON data from the API Gateway.
