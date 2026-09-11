@@ -1,0 +1,106 @@
+To connect your mobile app to AWS, you will need to set up an architecture where API Gateway acts as the front door, Lambda processes the requests, and DynamoDB stores the data.
+
+Step 1: Set up AWS DynamoDB (The Database)
+First, you need a place to store your data.
+1.Go to the DynamoDB console in AWS.
+2.Click Create table.
+3.Enter a Table name (e.g., SensorData).
+4.Enter a Partition key (e.g., deviceId with type String). You can also add a Sort key (e.g., timestamp with type Number) if you want to sort data chronologically.
+5.Leave the rest as default and click Create table.
+
+Step 2: Set up AWS Lambda (The Backend Logic)
+Next, create the function that will read from or write to your database.
+1.Go to the Lambda console and click Create function.
+2.Choose Author from scratch.
+3.Here is a step-by-step guide to setting this up from scratch while keeping your data secure.
+4.Name your function (e.g., ProcessAppRequest) and choose a runtime (e.g., Node.js 20.x or Python 3.12).
+5.Click Create function.
+
+Give Lambda Permission to access DynamoDB:
+By default, Lambda cannot talk to DynamoDB. You must give it permission.
+1.In your Lambda function, go to the Configuration tab, then Permissions.
+2.Click the link under Execution role. This opens the IAM console.
+3.Click Add permissions -> Attach policies.
+4.Search for AmazonDynamoDBFullAccess (for testing) or create a custom policy with least-privilege access, and attach it.
+Add the Code:
+Here is an example of a simple Node.js Lambda function that writes data to DynamoDB:
+
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
+
+const client = new DynamoDBClient({});
+const dynamo = DynamoDBDocumentClient.from(client);
+const tableName = "SensorData"; // Replace with your table name
+
+exports.handler = async (event) => {
+    // Parse the body sent from the mobile app via API Gateway
+    let body = JSON.parse(event.body);
+    
+    const params = {
+        TableName: tableName,
+        Item: {
+            deviceId: body.deviceId,
+            timestamp: Date.now(),
+            sensorValue: body.sensorValue
+        }
+    };
+
+    try {
+        await dynamo.send(new PutCommand(params));
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "Data saved successfully!" }),
+        };
+    } catch (err) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: err.message }),
+        };
+    }
+};
+
+Click "Deploy" to save your code.
+
+Step 3: Set up AWS API Gateway (The Bridge to the Mobile App)
+Now, create the URL that your mobile app will call.
+
+1.Go to the API Gateway console.
+2.Click Create API and choose HTTP API (it is cheaper and easier to set up than a REST API for simple mobile integrations). Click Build.
+3.Name your API (e.g., MobileAppGateway) and click Next.
+4.Configure Routes:
+-Choose a method (e.g., POST to send data, GET to retrieve data).
+-Enter a path (e.g., /data).
+-Select your Lambda function (ProcessAppRequest) as the integration target.
+5.Click Next through the stages (default is fine) and click Create.
+
+Step 4: Connect the Mobile App
+Once API Gateway is created, AWS will provide you with an Invoke URL (it looks like https://[random-string].execute-api.[region].amazonaws.com).
+
+In your mobile app code (React Native, Flutter, Swift, or Kotlin), you will make an HTTP request to this URL.
+
+Example HTTP POST request from the mobile app (JavaScript/React Native):
+const sendDataToAWS = async (deviceId, sensorValue) => {
+  const apiUrl = "https://<YOUR_API_ID>.execute-api.<REGION>.amazonaws.com/data"; // Replace with your actual URL
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        deviceId: deviceId,
+        sensorValue: sensorValue
+      })
+    });
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error("Error sending data: ", error);
+  }
+};
+
+Important Security Reminders:
+Never hardcode AWS credentials (Access Keys/Secret Keys) in your mobile app. Using API Gateway is the correct and secure way to do this.
+If your mobile app is a web app (like a PWA), you will need to enable CORS in API Gateway so the browser allows the request.
+For production, consider adding authorization to your API Gateway (like Amazon Cognito or API Keys) so that only your app can trigger the Lambda function.
