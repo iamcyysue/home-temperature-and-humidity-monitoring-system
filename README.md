@@ -43,16 +43,16 @@ System Architecture Diagram
 			 
 2. Mobile App Setup (MIT App Inventor)
    
-		1. Go to [MIT App Inventor].
+   1.Go to [MIT App Inventor].
    
-		2. Import the .aia project file found in the app/ directory of this repository.
+   2.Import the .aia project file found in the app/ directory of this repository.
    
-		3. Go to the Blocks editor.
+   3.Go to the Blocks editor.
    
-		4. Locate the Web1.Url block and replace the placeholder URL
+   4.Locate the Web1.Url block and replace the placeholder URL
 		(https://[YOUR_API_URL_HERE]) with your actual AWS API Gateway Invoke URL.
 
-		5. Build the .apk and install it on your Android device.
+   5.Build the .apk and install it on your Android device.
 
 **🚀 Future Work**
 Here are some planned features and improvements for the next iterations of this project:
