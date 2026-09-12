@@ -14,9 +14,14 @@ This project demonstrates an end-to-end Internet of Things (IoT) architecture. I
 
 The system is built using a serverless cloud architecture to ensure scalability and low cost:
 
-System Architecture Diagram
+**System Architecture Diagram**
 
 <img width="792" height="182" alt="Home monitoring system drawio (2)" src="https://github.com/user-attachments/assets/1f951290-c3f6-464d-b58a-3e5f808c7b1d" />
+
+<img width="792" height="322" alt="Home monitoring system_dashboard drawio (1)" src="https://github.com/user-attachments/assets/4fc1dbb4-82a1-43f4-868c-6747118f6d6d" />
+
+**Home monitoring system dashboard**
+<img width="837" height="575" alt="Home environment dashboard" src="https://github.com/user-attachments/assets/7a365d05-1fde-41cd-8b91-daeade386c43" />
 
 
 1. **Hardware (Arduino Nano 33 BLE Sense):** Utilizes the on-board HTS221 sensor to collect temperature and humidity data, transmitting it to the mobile app via Bluetooth Low Energy (BLE).
@@ -24,6 +29,7 @@ System Architecture Diagram
 3. **AWS API Gateway:** The front door to the cloud backend. It receives the HTTP request from the mobile app.
 4. **AWS Lambda:** The serverless compute engine. It processes the incoming JSON data from the API Gateway.
 5. **AWS DynamoDB:** The NoSQL database where the sensor data is permanently stored.
+6. **Home Environment Dashboard:** The user interface that makes an HTTP GET request to the API Gateway to fetch and visualize the stored temperature and humidity data for the user.
 
 ### Data Flow
 [ Sensor / Arduino ] --(BLE)--> [ MIT App Inventor App ] --(HTTP POST)--> [ AWS API Gateway ] --> [ AWS Lambda ] --> [ AWS DynamoDB ]
@@ -57,10 +63,14 @@ System Architecture Diagram
 **🚀 Future Work**
 Here are some planned features and improvements for the next iterations of this project:
 
-**Data Visualization Dashboard:** Build a web-based frontend (e.g., React or Vue.js) to fetch data from DynamoDB and display real-time temperature and humidity charts.
+**Data Visualization Dashboard:**
+- Currently, the Home Environment Dashboard is hosted on localhost for development and testing purposes, providing real-time data visualization.
+- Future Work - Cloud Hosting & Custom Domain: Deploy the dashboard web application using Cloudflare Pages (or similar services) and bind it to a custom domain for reliable, global access.
+- Future Work - Authentication & Access Control: Implement strict access control using Cloudflare Zero Trust (Access). This will place a secure authentication gateway in front of the dashboard, ensuring that only authorized users (e.g., via specific email addresses or SSO) can view the private sensor data.
 
-**Automated Alerts:** Integrate AWS SNS (Simple Notification Service) to send email or SMS alerts when the temperature or humidity exceeds predefined safety thresholds.
+**Automated Alerts:**
+- Automated Alerts (Workflow Automation): Integrate a workflow automation tool like n8n (or AWS SNS) to trigger real-time alerts. By setting up a webhook, the system can automatically send notifications via Email, Telegram, or Slack whenever the temperature or humidity exceeds predefined safety thresholds.
 
-**Direct Cloud Integration:** Upgrade the hardware to a Wi-Fi enabled module (like ESP32) to connect directly to AWS IoT Core via MQTT, removing the need for a mobile app bridge.
+**Direct Cloud Integration:** 
+- Upgrade the hardware to a Wi-Fi enabled module (like ESP32) to connect directly to AWS IoT Core via MQTT, removing the need for a mobile app bridge.
 
-**Enhanced Security:** Implement API Keys or AWS Cognito to secure the API Gateway endpoints against unauthorized access.
