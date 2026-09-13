@@ -80,7 +80,7 @@ flowchart LR
 
 <img width="792" height="182" alt="Home monitoring system architecture" src="https://github.com/user-attachments/assets/1f951290-c3f6-464d-b58a-3e5f808c7b1d" />
 
-<img width="792" height="322" alt="Home monitoring system dashboard architecture" src="https://github.com/user-attachments/assets/4fc1dbb4-82a1-43f4-868c-6747118f6d6d" />
+<img width="835" height="332" alt="Home monitoring system_dashboard drawio" src="https://github.com/user-attachments/assets/9c560044-cd9b-44a6-8996-79d4fc8439e1" />
 
 ### Dashboard Preview
 
