@@ -54,9 +54,9 @@ The project demonstrates:
 | API Gateway endpoint for data ingestion | Done |
 | Lambda processing logic | Done |
 | DynamoDB storage | Done |
-| Dashboard visualization | Done locally |
+| Dashboard visualization | Done |
 | Cognito/JWT API authentication | Done |
-| Cloud-hosted dashboard | Planned |
+| Cloud-hosted dashboard | Done |
 | Custom domain | Planned |
 | Automated alerts | Planned |
 | ESP32 direct AWS IoT Core integration | Planned |
