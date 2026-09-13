@@ -16,9 +16,9 @@ The app allows the user to scan for and connect to the Arduino Nano BLE device.
 -Successful Connection & Subscription: When the connection is successfully established (BluetoothLE1.Connected):
  The Connect_to_Nano button text changes to "Bluetooth connected!".
  The app registers to receive string notifications (subscribes) from two specific BLE Characteristics:
-  -Temperature Characteristic: 19b10001-e8f2-537e-4f6c-d104768a1214
-  -Humidity Characteristic: 19b10002-e8f2-537e-4f6c-d104768a1214
--(Note: Both share the same Service UUID: 19b10000-e8f2-537e-4f6c-d104768a1214)
+  -Temperature Characteristic: 
+  -Humidity Characteristic: 
+-(Note: Both share the same Service UUID: )
 
 3. Receiving Data from Arduino (BLE)
 When the Arduino sends updated sensor data, the app processes it based on the characteristic UUID.
@@ -36,7 +36,7 @@ A Clock timer (Clock1.Timer) runs at regular intervals to push the collected dat
   -Sets the Web1.Url to the AWS API Gateway endpoint (https://uxxd2t9atl.execute-api.ap-southeast-1.amazonaws.com/...).
   -Sets the Request Headers to specify the content type: ["Content-Type", "application/json"].
 -Construct JSON Payload & Send: It builds a JSON object using a dictionary and sends it via Web1.PostText. The payload includes:
-  -sensor_id: Hardcoded as "sensor_001"
+  -sensor_id: Hardcoded as "sensor_00X"
   -temperature: The value of global current_temp
   -humidity: The value of global current_humid
   -timestamp: The current device time, formatted as "MM/dd/yyyy hh:mm:ss a"
