@@ -1,4 +1,4 @@
-# Home Temperature and Humidity Monitoring System
+# Home Temperature and Humidity Monitoring System (PoC)
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=flat&logo=amazon-aws&logoColor=white)
 ![Amazon DynamoDB](https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=flat&logo=Amazon%20DynamoDB&logoColor=white)
