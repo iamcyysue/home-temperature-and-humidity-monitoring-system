@@ -100,7 +100,4 @@ const sendDataToAWS = async (deviceId, sensorValue) => {
   }
 };
 
-Important Security Reminders:
-Never hardcode AWS credentials (Access Keys/Secret Keys) in your mobile app. Using API Gateway is the correct and secure way to do this.
-If your mobile app is a web app (like a PWA), you will need to enable CORS in API Gateway so the browser allows the request.
-For production, consider adding authorization to your API Gateway (like Amazon Cognito or API Keys) so that only your app can trigger the Lambda function.
+
