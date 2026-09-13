@@ -349,27 +349,20 @@ Lambda:
 
 ```text
 .
-├── arduino/
-│   └── sensor_ble/
-│       └── sensor_ble.ino
-│
+├── Arduino/
+│   └── Arduino code
 ├── app/
-│   └── home-monitoring-app.aia
-│
-├── backend/
-│   ├── lambda/
-│   │   └── index.js or lambda_function.py
-│   └── README.md
-│
+│   ├── HomeGateway.aia
+│   └── readme (logic in mobile app)
+├── backend/lambda/
+│   ├── lambda(GET).js
+│   └── lambda(POST).js
 ├── dashboard/
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
 │   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── docs/
-│   ├── architecture.png
-│   └── screenshots/
-│
+│   └── main.jsx
 └── README.md
 ```
 
@@ -756,21 +749,23 @@ This project helped me gain hands-on experience with:
 - Storing time-series data in DynamoDB
 - Visualizing sensor data in a dashboard
 - Applying cloud security best practices
+- Hosting the dashboard via cloudflare
 
 ---
 
 ## Summary
 
-This project demonstrates a secured serverless IoT monitoring system using:
+This project demonstrates a serverless IoT monitoring system using:
 
 ```text
 Arduino Nano 33 BLE Sense
-+ MIT App Inventor Mobile App
 + Amazon Cognito
 + Amazon API Gateway
 + AWS Lambda
 + Amazon DynamoDB
 + Home Environment Dashboard
++ Cloudflare (DNS & Hosting)
++ MIT App Inventor Mobile App (Gateway)
 ```
 
 It provides a practical example of how IoT sensor data can be collected, transmitted, secured, stored, and visualized using modern cloud-native services.
