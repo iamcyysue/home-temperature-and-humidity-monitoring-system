@@ -644,19 +644,6 @@ Do not log:
 
 ## Future Work
 
-### Cloud Hosting and Custom Domain
-
-The dashboard is currently developed and tested locally.
-
-Planned improvements:
-
-- Deploy the dashboard using Cloudflare Pages, AWS Amplify, or Amazon S3 with CloudFront.
-- Bind the dashboard to a custom domain.
-- Configure HTTPS.
-- Restrict production CORS to the dashboard domain.
-
----
-
 ### Dashboard Access Control
 
 Although the API is already protected by Cognito JWT authentication, the dashboard page itself should also be protected before production use.
