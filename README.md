@@ -62,6 +62,7 @@ The project demonstrates:
 | Automated alerts via n8n | Done |
 | ESP32 direct AWS IoT Core integration | Planned |
 | Infrastructure as Code | Planned |
+| Error and fault handling | Planned |
 
 ---
 
@@ -734,6 +735,16 @@ Possible tools:
 This would make the project easier to deploy, reproduce, and maintain.
 
 ---
+
+### Error and fault handling
+
+To further elevate the system's reliability to enterprise-grade standards, future development will focus on robust **Error and Fault Handling**:
+
+*   **Edge Fault Tolerance**: Implement offline caching and auto-retry mechanisms in the Mobile Gateway to prevent IoT data loss during network outages.
+*   **Cloud Backend Resilience**: Introduce Dead-Letter Queues (DLQ via SQS) for AWS Lambda to capture and reprocess failed executions, alongside AWS CloudWatch for centralised monitoring and error alerting.
+*   **Frontend Stability**: Integrate React Error Boundaries to prevent UI crashes and enhance the AWS Cognito authentication flow with graceful JWT token refresh handling.
+
+
 
 ## What I Learned
 
