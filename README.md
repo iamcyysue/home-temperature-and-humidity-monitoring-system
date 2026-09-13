@@ -9,6 +9,7 @@
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
+![n8n](https://img.shields.io/badge/n8n-%23EA4B71.svg?style=flat&logo=n8n&logoColor=white)
 
 ## IoT Sensor Data Logger with AWS Serverless Backend
 
@@ -58,7 +59,7 @@ The project demonstrates:
 | Cognito/JWT API authentication | Done |
 | Cloud-hosted dashboard | Done |
 | Custom domain | Done |
-| Automated alerts | Planned |
+| Automated alerts via n8n | Done |
 | ESP32 direct AWS IoT Core integration | Planned |
 | Infrastructure as Code | Planned |
 
@@ -81,7 +82,7 @@ flowchart LR
 
 ### System Architecture Diagram
 
-<img width="792" height="182" alt="Home monitoring system architecture" src="https://github.com/user-attachments/assets/1f951290-c3f6-464d-b58a-3e5f808c7b1d" />
+<img width="835" height="302" alt="Home monitoring system drawio (6)" src="https://github.com/user-attachments/assets/94f1a7c7-2e64-440a-8399-45f9a2318e5a" />
 
 <img width="835" height="332" alt="Home monitoring system_dashboard drawio" src="https://github.com/user-attachments/assets/9c560044-cd9b-44a6-8996-79d4fc8439e1" />
 
@@ -680,7 +681,6 @@ Possible integrations:
 
 - AWS SNS
 - Amazon EventBridge
-- n8n webhook
 - Email notification
 - Telegram bot
 - Slack webhook
