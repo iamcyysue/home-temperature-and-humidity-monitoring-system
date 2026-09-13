@@ -57,7 +57,7 @@ The project demonstrates:
 | Dashboard visualization | Done |
 | Cognito/JWT API authentication | Done |
 | Cloud-hosted dashboard | Done |
-| Custom domain | Planned |
+| Custom domain | Done |
 | Automated alerts | Planned |
 | ESP32 direct AWS IoT Core integration | Planned |
 | Infrastructure as Code | Planned |
