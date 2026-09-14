@@ -42,7 +42,7 @@ The project demonstrates:
 | Database | Amazon DynamoDB |
 | Dashboard | Home environment data visualization |
 | Architecture | Serverless, event-driven, low-cost |
-
+| Automated alerts | n8n |
 ---
 
 ## Current Feature Status
