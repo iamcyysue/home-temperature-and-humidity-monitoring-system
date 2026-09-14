@@ -60,6 +60,7 @@ The project demonstrates:
 | Cloud-hosted dashboard | Done |
 | Custom domain | Done |
 | Automated alerts via n8n | Done |
+| AWS Billing and Cost Management | Done |
 | ESP32 direct AWS IoT Core integration | Planned |
 | Infrastructure as Code | Planned |
 | Error and fault handling | Planned |
